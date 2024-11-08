@@ -24,3 +24,4 @@ npm i nodemon
 - Create a folder name components in frontend and written the HEADER.JSX Code.
 - Create a folder name server in backend and written the index.js file.
 - Connected to Database.
+- Create user model.

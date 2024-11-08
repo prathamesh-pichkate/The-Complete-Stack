@@ -1,6 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import userRouter from "./routes/user.route.js";
+import authRouter from "./routes/auth.route.js";
+import errorMiddlewar from "./middleware/error.js";
 
 dotenv.config();
 
@@ -15,6 +18,13 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
+
+//Routers
+app.use(express.json());
+
+app.use("/api/users", userRouter);
+app.use("/api/auth", authRouter);
+app.use(errorMiddlewar);
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
