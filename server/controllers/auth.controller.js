@@ -78,13 +78,15 @@ export const signin = async (req, res, next) => {
       }
     );
 
+    const { password: pass, ...rest } = user._doc;
+
     //send the response with the cookie
     res
       .status(200)
       .cookie("access_token", token, {
         httpOnly: true,
       })
-      .json({ message: "Signin successfully" });
+      .json(rest);
   } catch (error) {
     next(error);
   }
