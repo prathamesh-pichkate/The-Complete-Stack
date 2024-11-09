@@ -3,7 +3,7 @@ import { FaLinkedin, FaInstagram, FaTwitter, FaGithub } from "react-icons/fa";
 
 export default function FooterComponent() {
   return (
-    <Footer container>
+    <Footer container className="border-t-2">
       <div className="w-full sm:flex sm:items-center sm:justify-between">
         <Footer.Copyright href="/" by="JustBlogs" year={2024} />
         <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
