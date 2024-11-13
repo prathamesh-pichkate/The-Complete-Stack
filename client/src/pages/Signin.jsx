@@ -38,7 +38,8 @@ export default function Signin() {
       }
 
       if (res.ok) {
-        dispatch(signInSuccess(data.user));
+        console.log(data);
+        dispatch(signInSuccess(data));
         navigate("/");
       }
     } catch (error) {
