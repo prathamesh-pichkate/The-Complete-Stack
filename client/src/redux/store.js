@@ -5,10 +5,12 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // Import storage for local storage
 import userReducer from "./user/userSlice.js";
+import themeReducer from "./theme/themeSlice.js";
 
 // Combine reducers
 const rootReducer = combineReducers({
   user: userReducer,
+  theme: themeReducer,
 });
 
 // Redux Persist configuration
