@@ -20,7 +20,7 @@ export default function Signin() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior or any other desired behavior like refreshing the page
+    e.preventDefault();
     if (!formData.email || !formData.password) {
       return dispatch(signInFailure("All fields are required"));
     }
