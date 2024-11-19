@@ -1,6 +1,10 @@
 import express from "express";
 import { verifyUser } from "../utils/verifyUser.js";
-import { updateUser, deleteUser } from "../controllers/user.controller.js";
+import {
+  updateUser,
+  deleteUser,
+  signout,
+} from "../controllers/user.controller.js";
 import { upload } from "../middleware/multer.middleware.js";
 
 const router = express.Router();
@@ -13,5 +17,6 @@ router.put(
 );
 
 router.delete("/delete/:userId", verifyUser, deleteUser);
+router.post("/signout", signout);
 
 export default router;
