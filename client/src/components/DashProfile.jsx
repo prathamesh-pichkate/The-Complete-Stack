@@ -2,6 +2,7 @@ import { Button, TextInput, Modal } from "flowbite-react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useRef } from "react";
+import { Link } from "react-router-dom";
 
 import {
   updateUserFailure,
@@ -175,7 +176,6 @@ export default function DashProfile() {
           ref={fileRef}
           className="hidden"
         />
-
         {/* Image preview */}
         <div
           className="relative w-32 h-32 self-center cursor-pointer shadow-md overflow-hidden rounded-full hover:opacity-80 transition-opacity"
@@ -192,7 +192,6 @@ export default function DashProfile() {
             </span>
           </div>
         </div>
-
         {/* Form fields */}
         <TextInput
           type="text"
@@ -215,12 +214,10 @@ export default function DashProfile() {
           onChange={handleChange}
           value={formData.password}
         />
-
         {/* Error message */}
         {updateStatus.error && (
           <div className="text-red-500 text-sm">{updateStatus.error}</div>
         )}
-
         {/* Submit button */}
         <Button
           type="submit"
@@ -230,6 +227,18 @@ export default function DashProfile() {
         >
           {updateStatus.loading ? "Updating..." : "Update Profile"}
         </Button>
+        {/* Create Post buuton for admin*/}
+        {currentUser.isAdmin && (
+          <Link to="/create-post">
+            <Button
+              type="submit"
+              gradientDuoTone="purpleToBlue"
+              className="w-full"
+            >
+              Create Post
+            </Button>
+          </Link>
+        )}
       </form>
 
       {/* Additional actions */}
