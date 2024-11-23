@@ -1,6 +1,6 @@
 import express from "express";
 import { verifyUser } from "../utils/verifyUser.js";
-import { createPost } from "../controllers/post.controller.js";
+import { createPost, getposts } from "../controllers/post.controller.js";
 
 import { upload } from "../middleware/multer.middleware.js";
 const router = express.Router();
