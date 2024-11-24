@@ -34,13 +34,14 @@ export default function DashPosts() {
 
   const handleShowMore = async () => {
     const startIndex = usersPost.length;
+    console.log(startIndex);
     try {
       const res = await fetch(
         `/api/posts/getposts?userId=${currentUser._id}&startIndex=${startIndex}`
       );
       const data = await res.json();
       if (res.ok) {
-        setUsersPost((old) => [...old, ...data.posts]);
+        setUsersPost((oldPost) => [...oldPost, ...data.posts]);
         if (data.posts.length < 9) {
           setShowMorePosts(false);
         }
@@ -51,7 +52,7 @@ export default function DashPosts() {
   };
 
   return (
-    <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
+    <div className="table-auto w-full overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
       {currentUser.isAdmin && usersPost.length > 0 ? (
         <>
           <Table hoverable className="shadow-md">
