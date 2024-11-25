@@ -4,6 +4,7 @@ import {
   updateUser,
   deleteUser,
   signout,
+  getUsers,
 } from "../controllers/user.controller.js";
 import { upload } from "../middleware/multer.middleware.js";
 
@@ -18,5 +19,7 @@ router.put(
 
 router.delete("/delete/:userId", verifyUser, deleteUser);
 router.post("/signout", signout);
+
+router.get("/getusers", verifyUser, getUsers);
 
 export default router;
