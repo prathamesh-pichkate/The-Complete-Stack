@@ -126,3 +126,57 @@ export const deletepost = async (req, res, next) => {
     next(error);
   }
 };
+
+export const updatepost = async (req, res, next) => {
+  if (!req.user.isAdmin && req.user.id !== req.params.userId) {
+    return next(
+      errorHandler(403, "You are not authorized to update this post")
+    );
+  }
+
+  try {
+    // Fetch the existing post
+    const post = await Post.findById(req.params.postId);
+    if (!post) {
+      return next(errorHandler(404, "Post not found"));
+    }
+
+    let updatedImageUrl = post.image; // Default to the existing image URL
+
+    // If a new image file is uploaded, upload it to Cloudinary
+    if (req.file) {
+      updatedImageUrl = await new Promise((resolve, reject) => {
+        cloudinary.uploader
+          .upload_stream(
+            { folder: "posts", use_filename: true },
+            (error, result) => {
+              if (error) {
+                reject(error);
+              } else {
+                resolve(result.secure_url);
+              }
+            }
+          )
+          .end(req.file.buffer);
+      });
+    }
+
+    // Update the post details
+    const updatedPost = await Post.findByIdAndUpdate(
+      req.params.postId,
+      {
+        $set: {
+          title: req.body.title || post.title,
+          content: req.body.content || post.content,
+          category: req.body.category || post.category,
+          image: updatedImageUrl, // Use the new image URL if provided
+        },
+      },
+      { new: true } // Return the updated document
+    );
+
+    res.status(200).json(updatedPost);
+  } catch (error) {
+    next(error);
+  }
+};
