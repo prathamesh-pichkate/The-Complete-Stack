@@ -66,6 +66,18 @@ export default function DashSidebar() {
               </Sidebar.Item>
             </Link>
           )}
+          {currentUser.isAdmin && (
+            <Link to="/dashboard?tab=users">
+              <Sidebar.Item
+                active={tab === "users"}
+                icon={IoDocumentSharp}
+                labelColor="dark"
+                as="div"
+              >
+                Users
+              </Sidebar.Item>
+            </Link>
+          )}
           <Sidebar.Item
             icon={MdOutlineLogout}
             className="cursor-pointer"

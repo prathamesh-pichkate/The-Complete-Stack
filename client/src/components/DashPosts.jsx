@@ -10,7 +10,6 @@ export default function DashPosts() {
   const [usersPost, setUsersPost] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [postIdToDelete, setPostIdToDelete] = useState("");
-  console.log(postIdToDelete);
 
   useEffect(() => {
     const fetchPosts = async () => {
