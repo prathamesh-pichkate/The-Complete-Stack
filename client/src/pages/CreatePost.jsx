@@ -56,9 +56,9 @@ export default function CreatePost() {
       if (!response.ok) {
         throw new Error(json.message || "Something went wrong");
       }
-
       // Reset form and show success message
       setFormData({ title: "", content: "", category: "" });
+
       setFile(null);
       alert("Post created successfully!");
     } catch (error) {
