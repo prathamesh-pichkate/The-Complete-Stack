@@ -160,6 +160,14 @@ export const updatepost = async (req, res, next) => {
       });
     }
 
+    const slug = req.body.title
+      .split(" ")
+      .join("-")
+      .toLowerCase()
+      .replace(/[^a-z0-9-]/g, "");
+
+    console.log("Slug is:", slug);
+
     // Update the post details
     const updatedPost = await Post.findByIdAndUpdate(
       req.params.postId,
@@ -168,7 +176,8 @@ export const updatepost = async (req, res, next) => {
           title: req.body.title || post.title,
           content: req.body.content || post.content,
           category: req.body.category || post.category,
-          image: updatedImageUrl, // Use the new image URL if provided
+          image: updatedImageUrl,
+          slug: slug || post.slug,
         },
       },
       { new: true } // Return the updated document
