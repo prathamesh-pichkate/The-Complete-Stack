@@ -37,7 +37,7 @@ export default function CommentSection({ postId }) {
       if (res.ok) {
         setComment("");
         setCommentError(null);
-        setComments((prevComments) => [...prevComments, data]); // Add new comment
+        setComments((prevComments) => [data, ...prevComments]);
       } else {
         setCommentError("Failed to post comment.");
       }
