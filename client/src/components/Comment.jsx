@@ -122,21 +122,21 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
               </p>
               {currentUser &&
                 (currentUser._id === comment.userId || currentUser.isAdmin) && (
-                  <buton
+                  <button
                     type="button"
                     onClick={handleEdit}
                     className="text-gray-400 hover:text-blue-500 cursor-pointer"
                   >
                     Edit
-                  </buton>
+                  </button>
                 )}
-              <buton
+              <button
                 type="button"
                 onClick={() => onDelete(comment._id)}
                 className="text-gray-400 hover:text-blue-500 cursor-pointer"
               >
                 Delete
-              </buton>
+              </button>
             </div>
           </>
         )}
