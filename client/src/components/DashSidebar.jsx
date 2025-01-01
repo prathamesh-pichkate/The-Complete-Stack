@@ -1,11 +1,13 @@
 import { Sidebar } from "flowbite-react";
-import { HiUser } from "react-icons/hi";
 import { MdOutlineLogout } from "react-icons/md";
 import { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signoutSuccess } from "../redux/user/userSlice";
-import { IoDocumentSharp } from "react-icons/io5";
+import { FaRegUser } from "react-icons/fa";
+import { TbLogs } from "react-icons/tb";
+import { FaRegComments } from "react-icons/fa6";
+import { FaUsers } from "react-icons/fa";
 
 export default function DashSidebar() {
   const location = useLocation();
@@ -43,10 +45,19 @@ export default function DashSidebar() {
     <Sidebar className="w-full md:w-56 ">
       <Sidebar.Items>
         <Sidebar.ItemGroup className="flex flex-col gap-1">
+          <Link to="/dashboard?tab=dashboard">
+            <Sidebar.Item
+              active={tab === "dashboard"}
+              icon={FaRegUser}
+              as="div"
+            >
+              Dashboard
+            </Sidebar.Item>
+          </Link>
           <Link to="/dashboard?tab=profile">
             <Sidebar.Item
               active={tab === "profile"}
-              icon={HiUser}
+              icon={FaRegUser}
               label={currentUser.isAdmin ? "Admin" : "User"}
               labelColor="dark"
               as="div"
@@ -58,7 +69,7 @@ export default function DashSidebar() {
             <Link to="/dashboard?tab=posts">
               <Sidebar.Item
                 active={tab === "posts"}
-                icon={IoDocumentSharp}
+                icon={TbLogs}
                 labelColor="dark"
                 as="div"
               >
@@ -70,7 +81,7 @@ export default function DashSidebar() {
             <Link to="/dashboard?tab=users">
               <Sidebar.Item
                 active={tab === "users"}
-                icon={IoDocumentSharp}
+                icon={FaUsers}
                 labelColor="dark"
                 as="div"
               >
@@ -82,7 +93,7 @@ export default function DashSidebar() {
             <Link to="/dashboard?tab=comments">
               <Sidebar.Item
                 active={tab === "comments"}
-                icon={IoDocumentSharp}
+                icon={FaRegComments}
                 labelColor="dark"
                 as="div"
               >
