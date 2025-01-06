@@ -8,6 +8,7 @@ import { FaRegUser } from "react-icons/fa";
 import { TbLogs } from "react-icons/tb";
 import { FaRegComments } from "react-icons/fa6";
 import { FaUsers } from "react-icons/fa";
+import { FaChartPie } from "react-icons/fa";
 
 export default function DashSidebar() {
   const location = useLocation();
@@ -45,15 +46,18 @@ export default function DashSidebar() {
     <Sidebar className="w-full md:w-56 ">
       <Sidebar.Items>
         <Sidebar.ItemGroup className="flex flex-col gap-1">
-          <Link to="/dashboard?tab=dashboard">
-            <Sidebar.Item
-              active={tab === "dashboard"}
-              icon={FaRegUser}
-              as="div"
-            >
-              Dashboard
-            </Sidebar.Item>
-          </Link>
+          {currentUser.isAdmin && (
+            <Link to="/dashboard?tab=dashboard">
+              <Sidebar.Item
+                active={tab === "dashboard"}
+                icon={FaChartPie}
+                labelColor="dark"
+                as="div"
+              >
+                Dashboard
+              </Sidebar.Item>
+            </Link>
+          )}
           <Link to="/dashboard?tab=profile">
             <Sidebar.Item
               active={tab === "profile"}

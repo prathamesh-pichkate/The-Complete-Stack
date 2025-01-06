@@ -2,23 +2,36 @@ import { Link } from "react-router-dom";
 
 export default function PostCard({ post }) {
   return (
-    <div className="group relative w-full border border-teal-500 hover:border-2 h-[350px] overflow-hidden rounded-lg sm:w-[300px] h-[350px]  transition-all">
-      <Link to={`/post/${post.slug}`}>
-        <img
-          src={post.image}
-          alt="post cover"
-          className="h-[200px] w-full p-1 object-cover rounded-lg sm:h-[200px]"
-        />
-      </Link>
-      <div className="p-3 flex flex-col gap-2">
-        <p className="text-lg font-semibold line-clamp-2">{post.title}</p>
-        <span className="italic text-sm">{post.category}</span>
-        <Link
-          to={`/post/${post.slug}`}
-          className="z-10 group-hover:bottom-0 absolute bottom-[-50px] left-0 right-0  border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white transition-all duration-300 text-center py-2 rounded-md !rounded-tl-none m-2"
-        >
-          Read article
+    <div className="max-w-6xl mx-auto p-3 flex flex-col  gap-5 py-7">
+      <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        {/* Image */}
+        <Link to={`/post/${post.slug}`}>
+          <img
+            className="rounded-t-lg"
+            src={post.image || "/home.jpg"} // Use post.image or fallback
+            alt={post.title}
+          />
         </Link>
+        {/* Content */}
+        <div className="p-4">
+          {/* Title */}
+          <Link to={`/post/${post.slug}`}>
+            <h5 className="mb-2 text-sm md:text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+              {post.title}
+            </h5>
+          </Link>
+          {/* Category */}
+          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            {post.category}
+          </p>
+          {/* Read More Link */}
+          <Link
+            to={`/post/${post.slug}`}
+            className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Read more
+          </Link>
+        </div>
       </div>
     </div>
   );

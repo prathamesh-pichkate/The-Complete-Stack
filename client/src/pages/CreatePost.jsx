@@ -28,27 +28,25 @@ export default function CreatePost() {
     try {
       setLoading(true);
 
-      // Validate form fields
       if (!formData.title || !formData.category || !formData.content) {
         alert("Please fill all the fields");
-        setLoading(false); // Stop loading if validation fails
+        setLoading(false);
         return;
       }
 
-      // Prepare form data
       const data = new FormData();
       data.append("title", formData.title);
       data.append("category", formData.category);
-      data.append("content", formData.content);
+      data.append("content", formData.content); // This will include the HTML content from React Quill
+
       if (file) {
         data.append("image", file);
       }
 
-      // Make API request
       const response = await fetch("/api/posts/create", {
         method: "POST",
         body: data,
-        credentials: "include", // Include cookies for authentication
+        credentials: "include",
       });
 
       const json = await response.json();
@@ -56,9 +54,8 @@ export default function CreatePost() {
       if (!response.ok) {
         throw new Error(json.message || "Something went wrong");
       }
-      // Reset form and show success message
-      setFormData({ title: "", content: "", category: "" });
 
+      setFormData({ title: "", content: "", category: "" });
       setFile(null);
       alert("Post created successfully!");
     } catch (error) {
@@ -105,10 +102,10 @@ export default function CreatePost() {
         </div>
         <ReactQuill
           theme="snow"
-          className="h-80"
           value={formData.content}
           onChange={(value) => setFormData({ ...formData, content: value })}
         />
+
         <Button
           type="submit"
           size="md"

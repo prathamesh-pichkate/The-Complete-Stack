@@ -1,17 +1,31 @@
 import { Navbar, TextInput, Button, Dropdown, Avatar } from "flowbite-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IoSearch } from "react-icons/io5";
 import { IoSunnySharp } from "react-icons/io5";
 import { IoMoon } from "react-icons/io5";
 import { useSelector, useDispatch } from "react-redux";
 import { changeTheme } from "../redux/theme/themeSlice";
 import { signoutSuccess } from "../redux/user/userSlice";
+import { useState, useEffect } from "react";
 
 export default function Header() {
   const path = useLocation().pathname;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);
+  const location = useLocation();
+
+  const [searchTerm, setSearchTerm] = useState("");
+  console.log(searchTerm);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search); //URLSearchParams : it is the constructor of javascript used to extract the query string from the URL
+    const searchTermFromUrl = urlParams.get("searchTerm");
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, [location.search]);
 
   const handleLogout = async () => {
     try {
@@ -30,6 +44,15 @@ export default function Header() {
       console.log(error.message);
     }
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set("searchTerm", searchTerm);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
+
   return (
     <Navbar className="border-b-2 bg-transparent">
       <Link
@@ -38,12 +61,14 @@ export default function Header() {
       >
         <span className="px-2 py-2">JustBlogs</span>
       </Link>
-      <form action="">
+      <form action="" onSubmit={handleSubmit}>
         <TextInput
           type="text"
           placeholder="search..."
           rightIcon={IoSearch}
           className="hidden lg:inline"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
       </form>
       <Button className="w-12 h-10 lg:hidden" color="gray">
@@ -99,7 +124,7 @@ export default function Header() {
       </div>
       <Navbar.Collapse>
         <Navbar.Link active={path === "/"} as={"div"}>
-          <Link to="/home">Home</Link>
+          <Link to="/">Home</Link>
         </Navbar.Link>
         <Navbar.Link active={path === "/about"} as={"div"}>
           <Link to="/about">About</Link>
