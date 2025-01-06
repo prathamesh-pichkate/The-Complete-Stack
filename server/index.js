@@ -7,6 +7,7 @@ import postRouter from "./routes/post.route.js";
 import commentRouter from "./routes/comment.route.js";
 import errorMiddlewar from "./middleware/error.js";
 import cookieParser from "cookie-parser";
+import path from "path";
 
 dotenv.config();
 
@@ -22,6 +23,8 @@ mongoose
     console.log(error);
   });
 
+const __dirname = path.resolve();
+
 //Routers
 app.use(express.json());
 app.use(cookieParser());
@@ -30,6 +33,11 @@ app.use("/api/auth", authRouter);
 app.use("/api/posts", postRouter);
 app.use("/api/comments", commentRouter);
 app.use(errorMiddlewar);
+
+app.use(express.static(path.join(__dirname, "/client/dist")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
