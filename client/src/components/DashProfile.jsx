@@ -44,7 +44,7 @@ export default function DashProfile() {
         });
         return;
       }
-      console.log(file);
+
       setImageFile(file);
       setImagePreview(URL.createObjectURL(file));
       setUpdateStatus({ error: null, loading: false });
