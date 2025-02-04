@@ -50,8 +50,7 @@ Ensure you have the following installed:
 ### Installation Steps
 1. **Clone the Repository**:
    ```bash
-   git clone <repository-url>
-   cd <repository-folder>
+   git clone https://github.com/prathamesh-pichkate/The-Complete-Stack.git
    ```
 
 2. **Install Dependencies**:
